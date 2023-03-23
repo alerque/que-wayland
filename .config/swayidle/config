@@ -1,0 +1,3 @@
+timeout 1800 'waylock'
+before-sleep 'playerctl pause'
+before-sleep 'waylock'
