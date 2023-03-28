@@ -10,6 +10,9 @@ window#waybar {
 
 widget > *:not(#tray) {
     padding: 1rem 0.5rem;
+
+#wireplumber {
+    background: rgba(0, 200, 0, 0.2);
 }
 
 #bluetooth.disabled {
