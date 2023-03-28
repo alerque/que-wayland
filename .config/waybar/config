@@ -1,0 +1,25 @@
+{
+    "layer": "top",
+    "position": "left",
+    "output": [ "DP-1" ],
+    "fixed-center": true,
+    "modules-left": [ "hyprland/language", "hyperland/submap" ],
+    "modules-center": [ "hyprland/window" ],
+    "modules-right": [ "tray", "battery", "clock" ],
+    "hyprland/language": {
+        "rotate": 270,
+        "max-length": 10
+    },
+    "hyprland/window": {
+        "rotate": 270
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": [ "", "", "", "", "" ],
+        "rotate": 270
+    },
+    "clock": {
+        "format": "{:%a %b %d, %H:%M}",
+        "rotate": 270
+    }
+}
