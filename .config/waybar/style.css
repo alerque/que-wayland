@@ -9,7 +9,14 @@ window#waybar {
 }
 
 widget > *:not(#tray) {
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.4rem;
+    margin: 0.1rem 0.2rem;
+    border-radius: .8rem;
+}
+
+widget > *:last-child {
+    margin-bottom: 0;
+}
 
 #wireplumber {
     background: rgba(0, 200, 0, 0.2);
