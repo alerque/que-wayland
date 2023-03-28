@@ -5,7 +5,7 @@
     "fixed-center": true,
     "modules-left": [ "hyprland/language", "hyperland/submap" ],
     "modules-center": [ "hyprland/window" ],
-    "modules-right": [ "tray", "battery", "clock" ],
+    "modules-right": [ "tray", "bluetooth", "battery", "clock" ],
     "hyprland/language": {
         "rotate": 270,
         "max-length": 10
@@ -15,6 +15,9 @@
     },
     "tray": {
         "icon-size": 22
+    },
+    "bluetooth": {
+        "rotate": 270
     },
     "battery": {
         "format": "{capacity}% {icon}",
@@ -48,3 +51,4 @@
         "rotate": 270
     }
 }
+# vim: ft: yaml

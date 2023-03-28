@@ -12,6 +12,19 @@ widget > *:not(#tray) {
     padding: 1rem 0.5rem;
 }
 
+#bluetooth.disabled {
+    color: #444444;
+}
+
+#bluetooth.off {
+    color: #aa4444;
+}
+
+#bluetooth.pairable,
+#bluetooth.connected {
+    color: #44aa44;
+}
+
 #clock {
     color: #44ffff;
 }
