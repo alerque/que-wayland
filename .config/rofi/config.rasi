@@ -1,0 +1,8 @@
+configuration {
+	modes: "drun,ssh";
+	show-icons: true;
+
+	ssh-client: "mosh";
+	ssh-command: "{terminal} -e {ssh-client} {host}";
+}
+
