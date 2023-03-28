@@ -11,3 +11,7 @@ window#waybar {
 widget > *:not(#tray) {
     padding: 1rem 0.5rem;
 }
+
+#clock {
+    color: #44ffff;
+}

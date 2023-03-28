@@ -13,13 +13,16 @@
     "hyprland/window": {
         "rotate": 270
     },
+    "tray": {
+        "icon-size": 22
+    },
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": [ "", "", "", "", "" ],
         "rotate": 270
     },
     "clock": {
-        "format": "{:%a %b %d, %H:%M}",
+        "format": "{:%a %b %d <b>%H:%M</b>}",
         "rotate": 270
     }
 }
