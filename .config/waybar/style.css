@@ -44,13 +44,11 @@ button {
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: rgba(50, 50, 150, 0.5);
 }
 
 #battery.charging, #battery.plugged {
-    color: #ffffff;
-    background-color: #26A65B;
+    background-color: rgba(50, 150, 50, 0.5);
 }
 
 @keyframes blink {
@@ -61,8 +59,7 @@ button {
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
+    background-color: rgba(150, 50, 50, 0.5);
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
