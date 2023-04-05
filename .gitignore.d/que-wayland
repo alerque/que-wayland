@@ -1,1 +1,9 @@
 *
+!/.config/hypr/hyprland.conf
+!/.config/hypr/hyprpaper.conf
+!/.config/hypr/workspaces.conf
+!/.config/rofi/config.rasi
+!/.config/swayidle/config
+!/.config/waybar/config
+!/.config/waybar/style.css
+!/.gitignore.d/que-wayland
