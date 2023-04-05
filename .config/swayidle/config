@@ -1,3 +1,5 @@
 timeout 1800 'waylock'
 before-sleep 'playerctl pause'
 before-sleep 'waylock'
+before-sleep 'hyprctl dispatch dpms off'
+after-resume 'hyprctl dispatch dpms on'

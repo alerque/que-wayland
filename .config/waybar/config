@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "left",
-    "output": [ "DP-1" ],
+    "output": [ "HDMI-A-1" ],
     "fixed-center": true,
     "modules-left": [ "hyprland/language", "hyperland/submap" ],
     "modules-center": [ "hyprland/window" ],
-    "modules-right": [ "tray", "wireplumber", "bluetooth", "battery", "clock" ],
+    "modules-right": [ "tray", "bluetooth", "battery", "clock" ],
     "hyprland/language": {
         "rotate": 270,
         "max-length": 10
