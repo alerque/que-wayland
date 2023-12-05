@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "left",
-    "output": [ "eDP-1" ],
+    "output": [ "DP-1" ],
     "fixed-center": true,
     "modules-left": [ "hyprland/language", "hyperland/submap" ],
     "modules-center": [ "hyprland/window" ],

@@ -1,0 +1,6 @@
+p = 1.000
+long_press_ms = 500
+press_command = "playerctl play-pause"
+long_press_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+press_clock_wise_command = "playerctl position 1+"
+press_counter_clock_wise_command = "playerctl position 1-"
