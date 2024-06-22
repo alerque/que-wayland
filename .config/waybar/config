@@ -3,12 +3,16 @@
     "position": "left",
     "output": [ "DP-1" ],
     "fixed-center": true,
-    "modules-left": [ "hyprland/language", "hyperland/submap" ],
+    "modules-left": [ "hyprland/language" ],
     "modules-center": [ "hyprland/window" ],
     "modules-right": [ "tray", "wireplumber", "bluetooth", "battery", "clock" ],
     "hyprland/language": {
         "rotate": 270,
-        "max-length": 10
+        "max-length": 10,
+        "keyboard-name": "keyboardio-model-100-keyboard",
+        "format-en-dvp": "US 🇺🇸",
+        "format-tr-ptf": "TR 🇹🇷",
+        "format-ru": "RU 🇰🇿",
     },
     "hyprland/window": {
         "rotate": 270
