@@ -1,0 +1,11 @@
+theme = Monokai Remastered
+font-family = Hack Nerd Font
+font-family = Symbola
+font-size = 14
+bold-is-bright = true
+background = 000000
+background-opacity = 0.85
+background-blur-radius = 30
+confirm-close-surface = false
+window-padding-balance = true
+window-decoration = false
