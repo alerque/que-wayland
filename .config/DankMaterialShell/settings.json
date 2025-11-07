@@ -3,11 +3,13 @@
   "customThemeFile": "",
   "matugenScheme": "scheme-tonal-spot",
   "runUserMatugenTemplates": true,
+  "matugenTargetMonitor": "",
   "dankBarTransparency": 0.8,
   "dankBarWidgetTransparency": 1,
   "popupTransparency": 1,
   "dockTransparency": 1,
   "use24HourClock": true,
+  "showSeconds": false,
   "useFahrenheit": true,
   "nightModeEnabled": false,
   "weatherLocation": "Ouray, 81427",
@@ -77,16 +79,20 @@
     }
   ],
   "showWorkspaceIndex": false,
+  "workspaceScrolling": false,
   "showWorkspacePadding": false,
   "showWorkspaceApps": true,
   "maxWorkspaceIcons": 5,
   "workspacesPerMonitor": false,
+  "dwlShowAllTags": false,
   "workspaceNameIcons": {},
   "waveProgressEnabled": true,
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,
   "runningAppsCompactMode": true,
+  "keyboardLayoutNameCompactMode": true,
   "runningAppsCurrentWorkspace": false,
+  "runningAppsGroupByApp": false,
   "clockDateFormat": "",
   "lockDateFormat": "",
   "mediaSize": 1,
@@ -147,6 +153,7 @@
   "spotlightModalViewMode": "list",
   "sortAppsAlphabetically": false,
   "networkPreference": "auto",
+  "vpnLastConnected": "",
   "iconTheme": "System Default",
   "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
@@ -173,6 +180,7 @@
   "soundPluggedIn": true,
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
+  "syncModeWithPortal": true,
   "showDock": false,
   "dockAutoHide": false,
   "dockGroupByApp": true,
@@ -180,6 +188,8 @@
   "dockPosition": 3,
   "dockSpacing": 4,
   "dockBottomGap": -9,
+  "dockIconSize": 40,
+  "dockIndicatorStyle": "circle",
   "cornerRadius": 8,
   "notificationOverlayEnabled": false,
   "dankBarAutoHide": false,
@@ -204,12 +214,16 @@
   "hideBrightnessSlider": false,
   "widgetBackgroundColor": "sch",
   "surfaceBase": "s",
+  "wallpaperFillMode": "Fill",
+  "blurredWallpaperLayer": false,
+  "blurWallpaperOnOverview": false,
   "notificationTimeoutLow": 5000,
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
   "notificationPopupPosition": 0,
   "osdAlwaysShowValue": false,
   "powerActionConfirm": true,
+  "customPowerActionLock": "",
   "customPowerActionLogout": "",
   "customPowerActionSuspend": "",
   "customPowerActionHibernate": "",
@@ -220,27 +234,34 @@
   "updaterTerminalAdditionalParams": "",
   "screenPreferences": {
     "dankBar": [
-      "eDP-1"
+      "eDP-1",
+      "DP-1"
     ],
     "dock": [],
     "notifications": [
-      "eDP-1"
+      "eDP-1",
+      "DP-1"
     ],
     "osd": [
-      "eDP-1"
+      "eDP-1",
+      "DP-1"
     ],
     "toast": [
-      "eDP-1"
+      "eDP-1",
+      "DP-1"
     ],
     "notepad": [],
     "systemTray": [
-      "eDP-1"
+      "eDP-1",
+      "DP-1"
     ],
     "wallpaper": [
       "all"
     ]
   },
+  "showOnLastDisplay": {},
   "animationSpeed": 2,
+  "customAnimationDuration": 500,
   "acMonitorTimeout": 0,
   "acLockTimeout": 0,
   "acSuspendTimeout": 0,
@@ -252,5 +273,6 @@
   "lockBeforeSuspend": false,
   "loginctlLockIntegration": true,
   "launchPrefix": "",
+  "brightnessDevicePins": {},
   "configVersion": 1
 }
