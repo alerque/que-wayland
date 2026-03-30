@@ -1,1 +1,28 @@
-{}
+{
+  "worldClock": {
+    "enabled": true,
+    "timezones": [
+      {
+        "timezone": "America/Denver",
+        "label": "CO"
+      },
+      {
+        "timezone": "US/Pacific",
+        "label": "OR"
+      },
+      {
+        "timezone": "Asia/Almaty",
+        "label": "KZ"
+      },
+      {
+        "timezone": "Turkey",
+        "label": "TR"
+      }
+    ]
+  },
+  "calculator": {
+    "enabled": true,
+    "noTrigger": false,
+    "trigger": "="
+  }
+}
