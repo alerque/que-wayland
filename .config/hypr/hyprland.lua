@@ -9,6 +9,10 @@ local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SSH_AUTH_SOCK"
 
 local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 
+-- for n, monitor in pairs(hl.get_monitors()) do
+--    hl.notification.create({ text = monitor.description, duration = 5000 })
+-- end
+
 -- Unconfigured monitors
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
@@ -44,6 +48,10 @@ else
    local display_lh, display_rh = monitors[1].name, monitors[#monitors > 1 and 2 or 1].name
 end
 
+-- hl.notification.create({ text = "HOSTNAME " .. hostname, duration = 5000 })
+-- hl.notification.create({ text = "KEYBOARD " .. input_kb, duration = 5000 })
+
+hl.workspace_rule({ workspace = "0", monitor = dispaly_rh, layout = "scrolling", default = true })
 hl.workspace_rule({ workspace = "1", monitor = display_lh })
 hl.workspace_rule({ workspace = "2", monitor = dispaly_rh })
 hl.workspace_rule({ workspace = "3", monitor = display_lh })
@@ -52,7 +60,9 @@ hl.workspace_rule({ workspace = "5", monitor = display_lh })
 hl.workspace_rule({ workspace = "6", monitor = dispaly_rh })
 hl.workspace_rule({ workspace = "7", monitor = display_lh })
 hl.workspace_rule({ workspace = "8", monitor = dispaly_rh })
+hl.workspace_rule({ workspace = "9", monitor = display_lh, layout = "scrolling" })
 
+hl.bind("SUPER + code:16", hl.dsp.focus({ workspace = "0" }))
 hl.bind("SUPER + code:11", hl.dsp.focus({ workspace = "1" }))
 hl.bind("SUPER + code:17", hl.dsp.focus({ workspace = "2" }))
 hl.bind("SUPER + code:12", hl.dsp.focus({ workspace = "3" }))
@@ -61,10 +71,12 @@ hl.bind("SUPER + code:13", hl.dsp.focus({ workspace = "5" }))
 hl.bind("SUPER + code:19", hl.dsp.focus({ workspace = "6" }))
 hl.bind("SUPER + code:14", hl.dsp.focus({ workspace = "7" }))
 hl.bind("SUPER + code:20", hl.dsp.focus({ workspace = "8" }))
+hl.bind("SUPER + code:15", hl.dsp.focus({ workspace = "9" }))
 
 hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
+hl.bind("SUPER + SHIFT + code:16", hl.dsp.window.move({ workspace = "0" }))
 hl.bind("SUPER + SHIFT + code:11", hl.dsp.window.move({ workspace = "1" }))
 hl.bind("SUPER + SHIFT + code:17", hl.dsp.window.move({ workspace = "2" }))
 hl.bind("SUPER + SHIFT + code:12", hl.dsp.window.move({ workspace = "3" }))
@@ -73,6 +85,7 @@ hl.bind("SUPER + SHIFT + code:13", hl.dsp.window.move({ workspace = "5" }))
 hl.bind("SUPER + SHIFT + code:19", hl.dsp.window.move({ workspace = "6" }))
 hl.bind("SUPER + SHIFT + code:14", hl.dsp.window.move({ workspace = "7" }))
 hl.bind("SUPER + SHIFT + code:20", hl.dsp.window.move({ workspace = "8" }))
+hl.bind("SUPER + SHIFT + code:15", hl.dsp.window.move({ workspace = "9" }))
 
 hl.config({
    input = {
@@ -142,6 +155,12 @@ hl.config({
 hl.config({
    dwindle = {
       preserve_split = true,
+   },
+})
+
+hl.config({
+   scrolling = {
+      fullscreen_on_one_column = true,
    },
 })
 
@@ -251,6 +270,11 @@ hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, roundi
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, border_size = 0 })
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, rounding = 0 })
 
+hl.window_rule({
+   match = { class = "(pinentry-)(.*)" },
+   stay_focused = true,
+})
+
 local keepassxc = hl.window_rule({
    name = "keypassxc",
    match = {
@@ -259,6 +283,23 @@ local keepassxc = hl.window_rule({
    },
    float = true,
    size = { "(monitor_w*0.6)", "(monitor_h*0.8)" },
+   center = true,
+   pin = true,
+   stay_focused = true,
+   no_screen_share = true,
+   border_size = 6,
+   border_color = "rgba(FF000099)",
+   rounding = 6,
+})
+
+local keepassxc_modal = hl.window_rule({
+   name = "keypassxc-modal",
+   match = {
+      class = "KeePassXC",
+      modal = true,
+   },
+   float = true,
+   size = { "(monitor_w*0.4)", "(monitor_h*0.4)" },
    center = true,
    pin = true,
    stay_focused = true,
