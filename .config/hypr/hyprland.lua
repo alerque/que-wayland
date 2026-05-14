@@ -16,7 +16,7 @@ local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 -- Unconfigured monitors
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
-local input_kb, display_lh, display_rh
+local input_kb, display_lh, display_rh, backlight
 
 if hostname == "aslan" then
    input_kb = "keyboardio-model-100-keyboard"
@@ -33,6 +33,7 @@ elseif hostname == "jaguar" then
    -- # monitor = Dell Inc. DELL S2340L 5FYJ532S1FXT, highres, auto-right, 1
 elseif hostname == "kazarka" then
    input_kb = "at-translated-set-2-keyboard"
+   backlight = "backlight:amdgpu_bl1"
    -- input_kb = "keyboardio-atreus-keyboard"
    display_lh, display_rh = "desc:BOE NE135A1M-NY1", "desc:BOE NE135A1M-NY1"
    hl.monitor({ output = display_rh, mode = "preferred", position = "auto", scale = "1.333" })
@@ -240,13 +241,13 @@ hl.bind(
 hl.bind(
    "XF86MonBrightnessUp",
    -- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 2%+"),
-   hl.dsp.exec_cmd("dms ipc call brightness increment 5"),
+   hl.dsp.exec_cmd(("dms ipc call brightness increment 5 %s"):format(backlight)),
    { locked = true, repeating = true }
 )
 hl.bind(
    "XF86MonBrightnessDown",
    -- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 2%-"),
-   hl.dsp.exec_cmd("dms ipc call brightness increment 3"),
+   hl.dsp.exec_cmd(("dms ipc call brightness decrement 5 %s"):format(backlight)),
    { locked = true, repeating = true }
 )
 
