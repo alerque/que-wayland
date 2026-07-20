@@ -5,7 +5,7 @@ local editor = "env TMUX=false neovide"
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
-local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SSH_AUTH_SOCK"
+local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SSH_AUTH_SOCK SSH_AGENT_PID"
 
 local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 
