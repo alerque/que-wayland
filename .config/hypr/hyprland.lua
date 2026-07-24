@@ -138,7 +138,6 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd(("systemctl --user import-environment %s").format(SYSTEMDVARS))
 
    -- hl.exec_cmd("hypridle")
-   -- hl.exec_cmd("hyprpaper")
    -- hl.exec_cmd("powermate -d")
    hl.exec_cmd("keepassxc")
    hl.exec_cmd("wl-paste --watch cliphist store")
@@ -350,7 +349,6 @@ local keepassxc_modal = hl.window_rule({
 -- DMS Include Configs
 require("dms.binds")
 require("dms.binds-user")
-require("dms.colors")
 require("dms.cursor")
 require("dms.layout")
 require("dms.windowrules")
