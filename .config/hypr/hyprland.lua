@@ -1,11 +1,23 @@
 local terminal = "alacritty"
 local editor = "env TMUX=false neovide"
 
--- see uwsm
+-- https://github.com/hyprwm/Hyprland/discussions/15588
+package.path = package.path .. ";/usr/share/lua/5.5/?.lua" .. ";/usr/share/lua/5.5/?/init.lua"
+
+local function inject_keychain_vars ()
+   local dkjson = require("dkjson")
+   local keychain = io.popen("keychain env --json")
+   local json_str = keychain:read("*a")
+   local agent_vars = dkjson.decode(json_str, 1)
+   for k, v in pairs(agent_vars) do
+      hl.env(k, v)
+   end
+end
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
-local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SSH_AUTH_SOCK SSH_AGENT_PID"
+local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
 local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 
@@ -16,7 +28,7 @@ local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 -- Unconfigured monitors
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
-local input_kb, display_lh, display_rh
+local input_kb, display_lh, display_rh, backlight
 
 if hostname == "aslan" then
    input_kb = "keyboardio-model-100-keyboard"
@@ -33,6 +45,7 @@ elseif hostname == "jaguar" then
    -- # monitor = Dell Inc. DELL S2340L 5FYJ532S1FXT, highres, auto-right, 1
 elseif hostname == "kazarka" then
    input_kb = "at-translated-set-2-keyboard"
+   backlight = "backlight:amdgpu_bl1"
    -- input_kb = "keyboardio-atreus-keyboard"
    display_lh, display_rh = "desc:BOE NE135A1M-NY1", "desc:BOE NE135A1M-NY1"
    hl.monitor({ output = display_rh, mode = "preferred", position = "auto", scale = "1.333" })
@@ -118,21 +131,23 @@ hl.config({
 })
 
 hl.on("hyprland.start", function ()
-   hl.exec_cmd("fw13-­keymaps")
+   hl.exec_cmd("systemctl --user start hyprland-session.target")
+   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
 
-   hl.exec_cmd("keychain --agents gpg,ssh --ignore-missing --inherit any --systemd --quiet")
+   hl.exec_cmd("keychain agent start --systemd --ssh-allow-forwarded")
    hl.exec_cmd(("systemctl --user import-environment %s").format(SYSTEMDVARS))
-   hl.exec_cmd(("dbus-update-activation-environment --systemd %s").format(SYSTEMDVARS))
-   hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland") -- TODO: now automatic?
 
-   hl.exec_cmd("exec-once = hypridle")
-   hl.exec_cmd("hyprpaper")
-   hl.exec_cmd("powermate -d")
+   -- hl.exec_cmd("hypridle")
+   -- hl.exec_cmd("hyprpaper")
+   -- hl.exec_cmd("powermate -d")
    hl.exec_cmd("keepassxc")
    hl.exec_cmd("wl-paste --watch cliphist store")
 
-   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-   hl.exec_cmd("systemctl --user start hyprland-session.target")
+   inject_keychain_vars()
+end)
+
+hl.on("hyprland.shutdown", function ()
+   os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
 
 hl.config({
@@ -186,6 +201,16 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.gesture({ fingers = 3, direction = "vertical", action = "workspace" })
+hl.gesture({ fingers = 3, direction = "horizontal", action = "scroll_move" })
+hl.gesture({
+   fingers = 4,
+   direction = "vertical",
+   action = "special",
+   workspace_name = "hyprake",
+   disable_inhibit = true,
+})
+hl.gesture({ fingers = 2, direction = "pinchin", action = "cursorZoom", zoom_level = "1.5", mode = "mult" })
+hl.gesture({ fingers = 2, direction = "pinchout", action = "cursorZoom", zoom_level = "1" })
 
 hl.bind("SUPER + CONTROL + H", hl.dsp.focus({ monitor = "left" }))
 hl.bind("SUPER + CONTROL + L", hl.dsp.focus({ monitor = "right" }))
@@ -240,15 +265,17 @@ hl.bind(
 hl.bind(
    "XF86MonBrightnessUp",
    -- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 2%+"),
-   hl.dsp.exec_cmd("dms ipc call brightness increment 5"),
+   hl.dsp.exec_cmd(("dms ipc call brightness increment 5 %s"):format(backlight)),
    { locked = true, repeating = true }
 )
 hl.bind(
    "XF86MonBrightnessDown",
    -- hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 2%-"),
-   hl.dsp.exec_cmd("dms ipc call brightness increment 3"),
+   hl.dsp.exec_cmd(("dms ipc call brightness decrement 5 %s"):format(backlight)),
    { locked = true, repeating = true }
 )
+
+hl.permission({ binary = "/usr/bin/obs", type = "screencopy", mode = "allow" })
 
 hl.workspace_rule({
    workspace = "special:hyprake",
@@ -319,3 +346,11 @@ local keepassxc_modal = hl.window_rule({
    border_color = "rgba(FF000099)",
    rounding = 6,
 })
+
+-- DMS Include Configs
+require("dms.binds")
+require("dms.binds-user")
+require("dms.colors")
+require("dms.cursor")
+require("dms.layout")
+require("dms.windowrules")
