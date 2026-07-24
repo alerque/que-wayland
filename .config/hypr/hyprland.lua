@@ -137,7 +137,6 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd("keychain agent start --systemd --ssh-allow-forwarded")
    hl.exec_cmd(("systemctl --user import-environment %s").format(SYSTEMDVARS))
 
-   -- hl.exec_cmd("hypridle")
    -- hl.exec_cmd("powermate -d")
    hl.exec_cmd("keepassxc")
    hl.exec_cmd("wl-paste --watch cliphist store")
