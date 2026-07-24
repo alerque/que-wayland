@@ -277,6 +277,8 @@ hl.bind(
    { locked = true, repeating = true }
 )
 
+hl.permission({ binary = "/usr/bin/obs", type = "screencopy", mode = "allow" })
+
 hl.workspace_rule({
    workspace = "special:hyprake",
    gaps_in = 25,
