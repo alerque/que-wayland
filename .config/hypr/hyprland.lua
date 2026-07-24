@@ -289,7 +289,7 @@ local pip = hl.window_rule({
 local keepassxc = hl.window_rule({
    name = "keypassxc",
    match = {
-      class = "KeePassXC",
+      class = "org.keepassxc.KeePassXC",
       modal = false,
    },
    float = true,
