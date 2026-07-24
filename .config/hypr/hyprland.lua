@@ -337,3 +337,11 @@ local keepassxc_modal = hl.window_rule({
    border_color = "rgba(FF000099)",
    rounding = 6,
 })
+
+-- DMS Include Configs
+require("dms.binds")
+require("dms.binds-user")
+require("dms.colors")
+require("dms.cursor")
+require("dms.layout")
+require("dms.windowrules")
