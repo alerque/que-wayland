@@ -1,11 +1,23 @@
 local terminal = "alacritty"
 local editor = "env TMUX=false neovide"
 
--- see uwsm
+-- https://github.com/hyprwm/Hyprland/discussions/15588
+package.path = package.path .. ";/usr/share/lua/5.5/?.lua" .. ";/usr/share/lua/5.5/?/init.lua"
+
+local function inject_keychain_vars ()
+   local dkjson = require("dkjson")
+   local keychain = io.popen("keychain env --json")
+   local json_str = keychain:read("*a")
+   local agent_vars = dkjson.decode(json_str, 1)
+   for k, v in pairs(agent_vars) do
+      hl.env(k, v)
+   end
+end
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
-local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SSH_AUTH_SOCK"
+local SYSTEMDVARS = "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
 local hostname = io.open("/etc/hostname", "r"):read("*a"):gsub("%s+", "")
 
@@ -119,21 +131,25 @@ hl.config({
 })
 
 hl.on("hyprland.start", function ()
-   hl.exec_cmd("fw13-­keymaps")
+   hl.exec_cmd("systemctl --user start hyprland-session.target")
+   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
 
-   hl.exec_cmd("keychain --agents gpg,ssh --ignore-missing --inherit any --systemd --quiet")
+   hl.exec_cmd("keychain agent start --systemd --ssh-allow-forwarded")
    hl.exec_cmd(("systemctl --user import-environment %s").format(SYSTEMDVARS))
-   hl.exec_cmd(("dbus-update-activation-environment --systemd %s").format(SYSTEMDVARS))
-   hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland") -- TODO: now automatic?
 
-   hl.exec_cmd("exec-once = hypridle")
-   hl.exec_cmd("hyprpaper")
-   hl.exec_cmd("powermate -d")
+   -- keychain env --json
+
+   -- hl.exec_cmd("hypridle")
+   -- hl.exec_cmd("hyprpaper")
+   -- hl.exec_cmd("powermate -d")
    hl.exec_cmd("keepassxc")
    hl.exec_cmd("wl-paste --watch cliphist store")
 
-   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-   hl.exec_cmd("systemctl --user start hyprland-session.target")
+   inject_keychain_vars()
+end)
+
+hl.on("hyprland.shutdown", function ()
+   os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
 
 hl.config({
