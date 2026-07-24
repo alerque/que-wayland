@@ -275,6 +275,17 @@ hl.window_rule({
    stay_focused = true,
 })
 
+local pip = hl.window_rule({
+   name = "pip",
+   match = {
+      title = "Picture in picture",
+      float = true,
+   },
+   float = false,
+   no_initial_focus = true,
+   suppress_event = "fullscreen",
+})
+
 local keepassxc = hl.window_rule({
    name = "keypassxc",
    match = {
