@@ -1,9 +1,6 @@
 local terminal = "alacritty"
 local editor = "env TMUX=false neovide"
 
--- https://github.com/hyprwm/Hyprland/discussions/15588
-package.path = package.path .. ";/usr/share/lua/5.5/?.lua" .. ";/usr/share/lua/5.5/?/init.lua"
-
 local function inject_keychain_vars ()
    local dkjson = require("dkjson")
    local keychain = io.popen("keychain env --json")
